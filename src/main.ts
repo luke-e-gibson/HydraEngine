@@ -11,5 +11,10 @@ declare global {
 const hydra = new Hydra({
   render: {}
 });
+
+hydra.loadGame("games/test.json").then(() => {
+  hydra.start();
+})
+
 window.Hydra = hydra;
 

@@ -32,40 +32,6 @@ export default class Hydra {
         canvas: config.render.canvas,
       });
     }
-
-    const test: IGame = {
-      metadata: {
-        id: "test",
-        name: "Test",
-        version: "1.0.0",
-      },
-      scenes: new Map<string, IScene>(),
-      currentScene: "test",
-    }
-
-    const scene: IScene = {
-      metadata: {
-        name: "test",
-        version: "1.0.0",
-      },
-      objects: new Map<string, IObject>(),
-    }
-
-    const object: IObject = {
-      id: "test",
-      name: "test",
-      components: [],
-    }
-
-    scene.objects.set(object.id, object);
-    test.scenes.set(scene.metadata.name, scene);
-
-    console.log("Game: ", test);
-    console.log(serialize(test, 2));
-
-    const sprite = new Sprite("textures/f-texture.png")
-    this.triton.addSprite("sprite", sprite);
-
     
   }
 
@@ -103,7 +69,7 @@ export default class Hydra {
 
   public async loadGame(path: string) {
     const res = await fetch(path);
-    const gameJson = await res.json();
+    const gameJson = await res.text();   // load as text to get maps back
     const gameData = loadGameData(gameJson);
     
     this.triton.clearRenderList();

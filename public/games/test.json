@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "id": "test",
+    "name": "Test",
+    "version": "1.0.0"
+  },
+  "scenes": {
+    "dataType": "Map",
+    "value": [
+      [
+        "test",
+        {
+          "metadata": {
+            "name": "test",
+            "version": "1.0.0"
+          },
+          "objects": {
+            "dataType": "Map",
+            "value": [
+              [
+                "test",
+                {
+                  "id": "test",
+                  "name": "test",
+                  "components": [
+                    {
+                      "type": "Transform",
+                      "data": {
+                        "position": [0,0,0],
+                        "rotation": [0,0,0],
+                        "scale": [0,0,0]
+                      }
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    ]
+  },
+  "currentScene": "test"
+}
