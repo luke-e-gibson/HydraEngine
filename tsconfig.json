@@ -18,7 +18,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "paths": {
+      "@hydra/*": ["./src/HydraEngine/engine/*"],
+      "@triton/*": ["./src/HydraEngine/triton/*"],
+      "@hydra/math": ["./src/HydraEngine/helpers/math.ts"],
+
+    }
   },
   "include": ["src"]
 }
