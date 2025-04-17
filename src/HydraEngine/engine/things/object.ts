@@ -1,4 +1,4 @@
-import { ComponentTypes, IComponent, ISpriteComponent } from "./component";
+import { ComponentTypes, ICameraComponent, IComponent, ISpriteComponent, ITransformComponent } from "./component";
 
 export interface IObject {
   id: string;
@@ -19,13 +19,14 @@ export class GameObject {
     this._components = object.components || [];
   }
 
-  public getComponent(type: ComponentTypes): IComponent | null {
+  public getComponent<T>(type: ComponentTypes): T | null {
     const component = this._components.find((component) => component.type === type);
+
     if (!component) {
       return null;
     }
 
-    return component;
+    return component.data as T;
   }
 
   public getComponents(type: ComponentTypes): IComponent[] {

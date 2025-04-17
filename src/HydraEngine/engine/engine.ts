@@ -88,7 +88,7 @@ export default class Hydra {
             console.error(`Object ${object.name} has no transform component. Cannot use sprite component.`);
             return;
           }
-          const transform = gObject.getComponent("transform")?.data as ITransformComponent;
+          const transform = gObject.getComponent<ITransformComponent>("transform");
           if (!transform) {
             console.error(`Transform component for object ${object.name} is missing or wrong.`);
             return;
