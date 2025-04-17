@@ -1,4 +1,4 @@
-import { mat4 } from "gl-matrix";
+import { mat4, vec3 } from "gl-matrix";
 import { IRenderable } from "./IRenderable";
 import { Shader } from "@triton/shader/Shader";
 import { Texture } from "../texture";
@@ -14,6 +14,7 @@ export class Sprite implements IRenderable {
   private shader: Shader | null = null;
   private texture: Texture | null = null;
   
+  private position: number[] = [0, 0];
 
   constructor(path: string) {
     this.texture = new Texture(path);
@@ -52,7 +53,7 @@ export class Sprite implements IRenderable {
         if(!this.texture) throw new Error("Texture creation failed");
         this.texture.init(gl)
 
-        this.modelMatrix = mat4.create();
+        this.modelMatrix = mat4.fromTranslation(mat4.create(), vec3.fromValues(this.position[0], this.position[1], 0));
   }
 
   public destroy(gl: WebGL2RenderingContext): void {
@@ -65,8 +66,7 @@ export class Sprite implements IRenderable {
   }
 
   public setPosition(x: number, y: number): void {
-    if (!this.modelMatrix) return;
-    this.modelMatrix = mat4.fromTranslation(mat4.create(), [x, y, 0]);
+    this.position = [x, y];
   }
 
   public render(cameraMatrix: mat4, viewMatrix: mat4, gl: WebGL2RenderingContext): void {

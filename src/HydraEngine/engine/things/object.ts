@@ -7,7 +7,7 @@ export interface IObject {
   components: IComponent[];
 }
 
-export class Object {
+export class GameObject {
   private _id: string;
   private _name: string;
 
