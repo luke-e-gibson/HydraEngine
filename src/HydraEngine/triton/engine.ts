@@ -119,6 +119,13 @@ export class Triton {
     return this.renderList.get(name);
   }
 
+  public clearRenderList() {
+    this.renderList.forEach((sprite) => {
+      sprite.destroy(this.gl);
+    });
+    this.renderList.clear();
+  }
+
   public renderFrame() {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
     
@@ -126,6 +133,10 @@ export class Triton {
       sprite.render(this.camera.projectionMatrix, this.camera.viewMatrix, this.gl);
     });
 
+  }
+
+  public clear() {
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
   }
 
 }

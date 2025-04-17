@@ -1,8 +1,15 @@
 import "./style.css"
 import Hydra from "@hydra/engine";
 
-const hydra = new Hydra({
-  render: {
 
+declare global {
+  interface Window {
+    Hydra: Hydra;
   }
+}
+
+const hydra = new Hydra({
+  render: {}
 });
+window.Hydra = hydra;
+

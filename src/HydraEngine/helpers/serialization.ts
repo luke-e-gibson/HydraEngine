@@ -1,4 +1,4 @@
-function replacer(key: string, value: any) {
+function replacer(_key: string, value: any) {
   if(value instanceof Map) {
     return {
       dataType: 'Map',
@@ -9,7 +9,7 @@ function replacer(key: string, value: any) {
   }
 }
 
-function reviver(key: string, value: any) {
+function reviver(_key: string, value: any) {
   if(typeof value === 'object' && value !== null) {
     if (value.dataType === 'Map') {
       return new Map(value.value);
@@ -18,8 +18,8 @@ function reviver(key: string, value: any) {
   return value;
 }
 
-export function serialize(obj: Object): string {
-  return JSON.stringify(obj, replacer, 2);
+export function serialize(obj: Object, space: number = 0): string {
+  return JSON.stringify(obj, replacer, space);
 }
 
 export function deserialize<T>(json: string): T {
