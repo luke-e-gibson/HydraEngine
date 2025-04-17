@@ -1,4 +1,4 @@
-import { ComponentTypes, IComponent, IScriptComponent } from "./component";
+import { ComponentTypes, IComponent } from "./component";
 import { ScriptComponent } from "../scripting/script";
 
 export interface IObject {
@@ -31,6 +31,12 @@ export class GameObject {
     }
 
     return component.data as T;
+  }
+
+  public Start(): void {
+    this._attachedScripts.forEach((script) => {
+      script.Start();
+    });
   }
 
   public attachScript(script: ScriptComponent): void {

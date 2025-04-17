@@ -105,7 +105,9 @@ export default class Hydra {
               return;
             }
             const script = new ScriptComponent(object.name, data);
+            script.Start();
             gObject.attachScript(script);
+
             
             break;
           default:

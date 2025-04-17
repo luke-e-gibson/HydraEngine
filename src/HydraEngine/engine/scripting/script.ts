@@ -17,9 +17,6 @@ export class ScriptComponent {
         throw new Error("Failed to load script functions.");
       }
       this._scriptFunctions = functions;
-
-      this._scriptFunctions.get("Start")?.call({ ...ScriptContext });
-
     } else {
       throw new Error("No script data provided.");
     }
@@ -55,6 +52,10 @@ export class ScriptComponent {
     }
   }
   
+  public Start(): void {
+    this._scriptFunctions.get("Start")?.call({ ...ScriptContext });
+  }
+
   public get name(): string {
     return this._name;
   }
