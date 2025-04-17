@@ -1,4 +1,4 @@
-import { ComponentTypes, ICameraComponent, IComponent, ISpriteComponent, ITransformComponent } from "./component";
+import { ComponentTypes, IComponent } from "./component";
 
 export interface IObject {
   id: string;
