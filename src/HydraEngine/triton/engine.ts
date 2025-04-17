@@ -74,4 +74,11 @@ export class Triton {
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
   }
 
+  public renderFrame() {
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+    
+    //Render
+
+  }
+
 }
