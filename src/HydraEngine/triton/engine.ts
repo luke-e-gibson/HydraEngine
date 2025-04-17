@@ -1,5 +1,7 @@
 import { Camera } from "./camera/Camera";
 import { Sprite } from "./object/Sprite";
+import { Shader } from "./shader/Shader";
+import { unlitShader } from "./shader/shaders/shaders";
 
 interface TritonConfig {
   canvas?: HTMLCanvasElement;
@@ -20,6 +22,8 @@ export class Triton {
   private canvas: HTMLCanvasElement;
   private gl: WebGL2RenderingContext;
   private state: TritonState;
+
+  private shader: Map<string, Shader> = new Map<string, Shader>();
 
   private renderList: Map<string, Sprite> = new Map<string, Sprite>();
   private camera: Camera;
@@ -87,6 +91,32 @@ export class Triton {
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.depthFunc(this.gl.LEQUAL);
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+    this.compileShaders();
+  }
+
+  private compileShaders() {
+    this.shader.set("unlit", unlitShader(this.gl));
+  }
+
+  public addSprite(name: string, sprite: Sprite) {
+    if (this.renderList.has(name)) {
+      console.warn(`Sprite with name ${name} already exists. Overwriting.`);
+    }
+    this.renderList.set(name, sprite);
+    sprite.init(this.gl, this.shader.get("unlit") as Shader);
+  }
+
+  public removeSprite(name: string) {
+    if (this.renderList.has(name)) {
+      this.renderList.get(name)?.destroy(this.gl);
+      this.renderList.delete(name);
+    } else {
+      console.warn(`Sprite with name ${name} does not exist.`);
+    }
+  }
+  
+  public getSprite(name: string): Sprite | undefined {
+    return this.renderList.get(name);
   }
 
   public renderFrame() {
