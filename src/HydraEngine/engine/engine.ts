@@ -3,8 +3,9 @@ import { Sprite } from "@triton/object/Sprite";
 import { IGame, loadGameData } from "./things/game";
 import { IScene } from "./things/scene";
 import { GameObject, IObject } from "./things/object";
-import { ISpriteComponent, ITransformComponent } from "./things/component";
+import { IScriptComponent, ISpriteComponent, ITransformComponent } from "./things/component";
 import { serialize } from "@helpers/serialization";
+import { ScriptComponent } from "./scripting/script";
 
 interface HydraConfig {
   render: {
@@ -76,25 +77,43 @@ export default class Hydra {
       }
 
       object.components.forEach((component) => {
+        switch (component.type) {
+          case "sprite":
+            const spriteComponentData = component.data as ISpriteComponent;
+            if (!spriteComponentData.textureLocation) {
+              console.warn(`Sprite component for object ${object.name} has no path. Also object data might be missing or wrong.`);
+              return;
+            }
+            const sprite = new Sprite(spriteComponentData.textureLocation);
+
+            if(!gObject.getComponent("transform")) {
+              console.error(`Object ${object.name} has no transform component. Cannot use sprite component.`);
+              return;
+            }
+            const transform = gObject.getComponent<ITransformComponent>("transform");
+            if (!transform) {
+              console.error(`Transform component for object ${object.name} is missing or wrong.`);
+              return;
+            }
+            sprite.setPosition(transform.position[0], transform.position[1]);
+            this.triton.addSprite(object.name, sprite);
+            break;
+          case "script":
+            const data = gObject.getComponent<IScriptComponent>("script")
+            if(!data) {
+              console.error(`Script component for object ${object.name} is missing or wrong.`);
+              return;
+            }
+            const script = new ScriptComponent(object.name, data);
+            gObject.attachScript(script);
+            
+            break;
+          default:
+            break;
+        }
+        
         if (component.type === "sprite") {
-          const spriteComponentData = component.data as ISpriteComponent;
-          if (!spriteComponentData.textureLocation) {
-            console.warn(`Sprite component for object ${object.name} has no path. Also object data might be missing or wrong.`);
-            return;
-          }
-          const sprite = new Sprite(spriteComponentData.textureLocation);
           
-          if(!gObject.getComponent("transform")) {
-            console.error(`Object ${object.name} has no transform component. Cannot use sprite component.`);
-            return;
-          }
-          const transform = gObject.getComponent<ITransformComponent>("transform");
-          if (!transform) {
-            console.error(`Transform component for object ${object.name} is missing or wrong.`);
-            return;
-          }
-          sprite.setPosition(transform.position[0], transform.position[1]);
-          this.triton.addSprite(object.name, sprite);
         }
       });
 

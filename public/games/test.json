@@ -48,6 +48,12 @@
                       "data": {
                         "textureLocation": "textures/pixel.png"
                       }
+                    },
+                    {
+                      "type": "script",
+                      "data": {
+                        "scriptData": "function Start() { console.log(`Hello from test.json`); this.test() } \n const exports = { Start };"
+                      }
                     }
                   ]
                 }

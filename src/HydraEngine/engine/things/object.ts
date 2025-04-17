@@ -1,4 +1,5 @@
-import { ComponentTypes, IComponent } from "./component";
+import { ComponentTypes, IComponent, IScriptComponent } from "./component";
+import { ScriptComponent } from "../scripting/script";
 
 export interface IObject {
   id: string;
@@ -12,11 +13,14 @@ export class GameObject {
   private _name: string;
 
   private _components: IComponent[];
+  private _attachedScripts: Map<string, ScriptComponent>;
 
   constructor(object: IObject) {
     this._id = object.id;
     this._name = object.name;
+    
     this._components = object.components || [];
+    this._attachedScripts = new Map<string, ScriptComponent>();
   }
 
   public getComponent<T>(type: ComponentTypes): T | null {
@@ -27,6 +31,24 @@ export class GameObject {
     }
 
     return component.data as T;
+  }
+
+  public attachScript(script: ScriptComponent): void {
+    if (this._attachedScripts.has(script.name)) {
+      throw new Error(`Script with ID ${script.name} is already attached`);
+    }
+    this._attachedScripts.set(script.name, script);
+  }
+
+  public detachScript(scriptId: string): void {
+    if (!this._attachedScripts.has(scriptId)) {
+      throw new Error(`Script with ID ${scriptId} is not attached`);
+    }
+    this._attachedScripts.delete(scriptId);
+  }
+
+  public getScripts(): ScriptComponent[] {
+    return Array.from(this._attachedScripts.values());
   }
 
   public getComponents(type: ComponentTypes): IComponent[] {

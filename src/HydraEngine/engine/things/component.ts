@@ -1,4 +1,4 @@
-export type ComponentTypes = "transform" | "sprite" | "camera"
+export type ComponentTypes = "transform" | "sprite" | "camera" | "script";
 
 export interface IComponent {
   id?: string,
@@ -19,4 +19,10 @@ export interface ICameraComponent {
   fov: number, // Field of view in degrees
   position: [number, number, number], // X, Y, Z
   rotation: [number, number, number], // X, Y, Z (Euler angles)
+}
+
+export interface IScriptComponent {
+  scriptURL?: string, // URL to the script
+  scriptData?: string, // Inline script data
+  data?: any, // Additional data for the script
 }
