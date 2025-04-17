@@ -4,6 +4,7 @@ import { IGame, loadGameData } from "./things/game";
 import { IScene } from "./things/scene";
 import { GameObject, IObject } from "./things/object";
 import { ISpriteComponent, ITransformComponent } from "./things/component";
+import { serialize } from "@helpers/serialization";
 
 interface HydraConfig {
   render: {
@@ -93,7 +94,6 @@ export default class Hydra {
             return;
           }
           sprite.setPosition(transform.position[0], transform.position[1]);
-          console.log("Hello i got added i am ", spriteComponentData.textureLocation);
           this.triton.addSprite(object.name, sprite);
         }
       });
@@ -107,7 +107,7 @@ export default class Hydra {
     }
 
     const gameData = this.game;
-    const gameJson = JSON.stringify(gameData, null, 2);
+    const gameJson = serialize(gameData, 2);
     const blob = new Blob([gameJson], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -134,23 +134,6 @@ export default class Hydra {
     if (!this.scene) {
       throw new Error(`Scene ${gameData.currentScene} not found`);
     }
-    
-
-    this.scene.objects.set("triton", {name: "triton", id: "triton", components: [{
-      type: "transform",
-      data: {
-        position: [-2, 0, 0],
-        rotation: [0, 0, 0],
-        scale: [1, 1, 1]
-      }
-    },
-    {
-      type: "sprite",
-      data: {
-        textureLocation: "/textures/f-texture.png",
-      }
-    }
-  ]});
 
     this.loadScene();
 
