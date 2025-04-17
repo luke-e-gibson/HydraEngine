@@ -1,3 +1,6 @@
+import { Camera } from "./camera/Camera";
+import { Sprite } from "./object/Sprite";
+
 interface TritonConfig {
   canvas?: HTMLCanvasElement;
   size?: {
@@ -17,6 +20,9 @@ export class Triton {
   private canvas: HTMLCanvasElement;
   private gl: WebGL2RenderingContext;
   private state: TritonState;
+
+  private renderList: Map<string, Sprite> = new Map<string, Sprite>();
+  private camera: Camera;
 
   constructor(config: TritonConfig) {
     this.state = this.getDefaultState();
@@ -40,6 +46,15 @@ export class Triton {
       throw new Error("WebGL2 not supported");
     }
     this.glConfig();
+
+    this.camera = new Camera({
+      fov: 45,
+      size: {
+        width: this.canvas.width,
+        height: this.canvas.height,
+      },
+    })
+
 
     this.updateState("running", "Triton started successfully");
   }
@@ -77,7 +92,9 @@ export class Triton {
   public renderFrame() {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
     
-    //Render
+    this.renderList.forEach((sprite) => {
+      sprite.render(this.camera.projectionMatrix, this.camera.viewMatrix, this.gl);
+    });
 
   }
 
