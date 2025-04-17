@@ -61,7 +61,8 @@ export default class Hydra {
     }
 
     this.triton.clearRenderList();
-    this.scene.objects.forEach((object) => {
+
+    this.scene.objects.forEach((object: IObject) => {
       const sprite = new Sprite("textures/f-texture.png")
       this.triton.addSprite(object.name, sprite);
     });
