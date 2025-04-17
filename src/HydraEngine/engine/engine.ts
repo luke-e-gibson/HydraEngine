@@ -1,4 +1,5 @@
 import { Triton } from "@triton/engine";
+import { Sprite } from "@triton/object/Sprite";
 
 interface HydraConfig {
   render: {
@@ -22,10 +23,12 @@ export default class Hydra {
     else {
       this.triton = new Triton({
         canvas: config.render.canvas,
-        size: config.render.size,
       });
     }
-  }
 
-  
+    const sprite = new Sprite("textures/f-texture.png")
+    this.triton.addSprite("sprite", sprite);
+
+    this.triton.renderFrame();
+  }
 }

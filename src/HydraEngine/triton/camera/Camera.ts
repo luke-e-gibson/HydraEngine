@@ -1,4 +1,4 @@
-import { degToRad } from "@hydra/math";
+import { degToRad } from "@helpers/math";
 import { mat4, quat, vec3 } from "gl-matrix";
 
 export interface CameraConfig {

@@ -5,8 +5,7 @@ export default defineConfig({
     alias: {
       '@triton': '/src/HydraEngine/triton',
       '@hydra': '/src/HydraEngine/engine',
-      '@math': '/src/HydraEngine/helpers/math.ts',
+      '@helpers': '/src/HydraEngine/helpers',
     }
   }
 })
-
