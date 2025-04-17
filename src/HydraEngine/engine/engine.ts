@@ -1,9 +1,9 @@
 import { Triton } from "@triton/engine";
 import { Sprite } from "@triton/object/Sprite";
-import { IGame, loadGameData } from "./loader/game";
-import { IScene } from "./loader/scene";
-import { IObject } from "./loader/object";
-import { serialize } from "@helpers/serialization";
+import { IGame, loadGameData } from "./things/game";
+import { IScene } from "./things/scene";
+import { IObject } from "./things/object";
+import { ISpriteComponent } from "./things/component";
 
 interface HydraConfig {
   render: {
@@ -21,7 +21,9 @@ export default class Hydra {
   private triton: Triton;
   private running: boolean = false;
   private game: IGame | null = null;
+
   private scene: IScene | null = null;
+  private objects: Map<string, Object> = new Map<string, Sprite>();
 
   constructor(config: HydraConfig) {
     if(config.render.render) {
@@ -61,10 +63,29 @@ export default class Hydra {
     }
 
     this.triton.clearRenderList();
+    this.objects = new Map<string, Sprite>();
 
     this.scene.objects.forEach((object: IObject) => {
-      const sprite = new Sprite("textures/f-texture.png")
-      this.triton.addSprite(object.name, sprite);
+      const gObject = new Object(object);
+      this.objects.set(object.name, gObject);
+
+      if(!object.components) {
+        console.warn(`Object ${object.name} has no components`);
+        return;
+      }
+
+      object.components.forEach((component) => {
+        if (component.type === "sprite") {
+          const spriteComponentData = component.data as ISpriteComponent;
+          if (!spriteComponentData.textureLocation) {
+            console.warn(`Sprite component for object ${object.name} has no path. Also object data might be missing or wrong.`);
+            return;
+          }
+          const sprite = new Sprite(spriteComponentData.textureLocation);
+          this.triton.addSprite(object.name, sprite);
+        }
+      });
+
     });
   }
 
@@ -74,6 +95,7 @@ export default class Hydra {
     const gameData = loadGameData(gameJson);
     
     this.triton.clearRenderList();
+
     if(!gameData.currentScene) {
       console.warn("No current scene set in game data. Defaulting to first scene.");
       gameData.currentScene = Array.from(gameData.scenes.keys())[0];

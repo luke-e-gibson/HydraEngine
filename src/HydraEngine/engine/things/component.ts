@@ -1,5 +1,8 @@
+export type ComponentTypes = "transform" | "sprite" | "camera"
+
 export interface IComponent {
-  type: "transform" | "sprite" | "camera",
+  id?: string,
+  type: ComponentTypes,
   data: ITransformComponent | ISpriteComponent | ICameraComponent,
 }
 export interface ITransformComponent {
@@ -9,8 +12,8 @@ export interface ITransformComponent {
 }
 export interface ISpriteComponent {
   textureLocation: string, // URL to the texture
-  offset: [number, number], // X, Y
-  color: [number, number, number], // RGB
+  offset?: [number, number], // X, Y
+  color?: [number, number, number], // RGB
 }
 export interface ICameraComponent {
   fov: number, // Field of view in degrees

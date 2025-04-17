@@ -64,6 +64,11 @@ export class Sprite implements IRenderable {
     this.shader = null;
   }
 
+  public setPosition(x: number, y: number): void {
+    if (!this.modelMatrix) return;
+    this.modelMatrix = mat4.fromTranslation(mat4.create(), [x, y, 0]);
+  }
+
   public render(cameraMatrix: mat4, viewMatrix: mat4, gl: WebGL2RenderingContext): void {
       if (!this.vertexBuffer || !this.indexBuffer || !this.modelMatrix || !this.texture) return;
     

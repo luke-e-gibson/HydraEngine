@@ -24,11 +24,17 @@
                   "name": "test",
                   "components": [
                     {
-                      "type": "Transform",
+                      "type": "transform",
                       "data": {
                         "position": [0,0,0],
                         "rotation": [0,0,0],
                         "scale": [0,0,0]
+                      }
+                    },
+                    {
+                      "type": "sprite",
+                      "data": {
+                        "textureLocation": "textures/pixel.png"
                       }
                     }
                   ]
