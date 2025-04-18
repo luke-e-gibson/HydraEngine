@@ -42,9 +42,10 @@
 	- (  ) Config texture for scaled up none fillter texture
 
 ## Engine Customization from game json
-- (  ) Set custom tab title from game json
-- (  ) Set background color
-	- (  ) Set render background color
+- ( X ) Set custom tab title from game json
+	- Name and version combine to Name: Version for tab title
+- ( X ) Set background color
+	- ( X ) Set render background color
 	
 ## Script Context saving
 - ( X ) Local context

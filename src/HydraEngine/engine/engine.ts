@@ -88,6 +88,7 @@ export default class Hydra {
     }
 
     this.triton.clearRenderList();
+    this.triton.setClearColor(this.scene.world.renderer.background[0], this.scene.world.renderer.background[1], this.scene.world.renderer.background[2])
     this.objects = new Map<string, GameObject>();
 
     this.scene.objects.forEach((object: IObject) => {
@@ -165,6 +166,8 @@ export default class Hydra {
     const gameData = loadGameData(gameJson);
     
     this.triton.clearRenderList();
+
+    window.document.title = `${gameData.metadata.name}: ${gameData.metadata.version}`;
 
     if(!gameData.currentScene) {
       console.warn("No current scene set in game data. Defaulting to first scene.");
