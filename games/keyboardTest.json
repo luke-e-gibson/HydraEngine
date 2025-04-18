@@ -51,7 +51,7 @@
                     {
                       "type": "sprite",
                       "data": {
-                        "textureLocation": "textures/pixel.png"
+                        "color": [ 0.1, 0.5, 0.21 ]
                       }
                     },
                     {
