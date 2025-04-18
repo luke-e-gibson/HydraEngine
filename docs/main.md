@@ -1,5 +1,7 @@
 # Documentation
 
 # Pages:
-### [Scripting](/scripting.md)
-### [Game.json](/gameJson.md)
+- ### [Scripting](/docs/scripting.md)
+  - Game scripting
+- ### [Game.json](/docs/gameJson.md)
+  - Game Json file format
