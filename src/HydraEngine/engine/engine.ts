@@ -8,6 +8,7 @@ import { serialize } from "@helpers/serialization";
 import { ScriptComponent } from "./scripting/script";
 import { Keyboard } from "./input/keyboard";
 import { IGlobalScriptContext } from "./scripting/scriptContext";
+import { Mouse } from "./input/mouse";
 
 interface HydraConfig {
   render: {
@@ -32,7 +33,8 @@ export default class Hydra {
   private objects: Map<string, GameObject> = new Map<string, GameObject>();
 
   //Input
-  private keyboard: Keyboard; 
+  private keyboard: Keyboard;
+  private mouse: Mouse;
 
   //Scripting
   private scriptContext: IGlobalScriptContext | null = null;
@@ -48,7 +50,7 @@ export default class Hydra {
     }
     
     this.keyboard = new Keyboard();
-
+    this.mouse = new Mouse(this.triton.Canvas);
   }
 
   private update() {
@@ -65,6 +67,7 @@ export default class Hydra {
     this.objects.forEach((object: GameObject) => {
       this.scriptContext = object.Update({
         keyboard: this.keyboard,
+        mouse: this.mouse,
       }, {});
     })
 
@@ -88,6 +91,7 @@ export default class Hydra {
     }
 
     this.triton.clearRenderList();
+    this.triton.setClearColor(this.scene.world.renderer.background[0], this.scene.world.renderer.background[1], this.scene.world.renderer.background[2])
     this.objects = new Map<string, GameObject>();
 
     this.scene.objects.forEach((object: IObject) => {
@@ -165,6 +169,8 @@ export default class Hydra {
     const gameData = loadGameData(gameJson);
     
     this.triton.clearRenderList();
+
+    window.document.title = `${gameData.metadata.name}: ${gameData.metadata.version}`;
 
     if(!gameData.currentScene) {
       console.warn("No current scene set in game data. Defaulting to first scene.");

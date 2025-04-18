@@ -6,5 +6,11 @@ export interface IScene {
     version: string;
   }
 
+  world: {
+    renderer: {
+      background: [number, number, number];
+    }
+  }
+
   objects: Map<string, IObject>;
 }

@@ -119,6 +119,11 @@ export class Triton {
     return this.renderList.get(name);
   }
 
+  public setClearColor(r: number, g: number, b: number, a: number = 1) {
+    this.gl.clearColor(r, g, b, a);
+    this.renderFrame();
+  }
+
   public clearRenderList() {
     this.renderList.forEach((sprite) => {
       sprite.destroy(this.gl);
