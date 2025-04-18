@@ -163,7 +163,27 @@ export default class Hydra {
     console.log("Game saved to game.json");
   }
 
-  public async loadGame(path: string) {
+  public loadGame(gameData: IGame) {
+    this.triton.clearRenderList();
+
+    window.document.title = `${gameData.metadata.name}: ${gameData.metadata.version}`;
+
+    if(!gameData.currentScene) {
+      console.warn("No current scene set in game data. Defaulting to first scene.");
+      gameData.currentScene = Array.from(gameData.scenes.keys())[0];
+    }
+
+    this.scene = gameData.scenes.get(gameData.currentScene) as IScene;
+    if (!this.scene) {
+      throw new Error(`Scene ${gameData.currentScene} not found`);
+    }
+
+    this.loadScene();
+
+    this.game = gameData;
+  }
+
+  public async loadGameFromFile(path: string) {
     const res = await fetch(path);
     const gameJson = await res.text();   // load as text to get maps back
     const gameData = loadGameData(gameJson);

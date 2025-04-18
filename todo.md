@@ -48,6 +48,9 @@
 	- Name and version combine to Name: Version for tab title
 - ( X ) Set background color
 	- ( X ) Set render background color
+
+## Other
+- ( X ) Load game from in memory json blob
 	
 ## Script Context saving
 - ( X ) Local context

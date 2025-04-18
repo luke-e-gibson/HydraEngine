@@ -12,7 +12,7 @@ const hydra = new Hydra({
   render: {}
 });
 
-hydra.loadGame("games/keyboardTest.json").then(() => {
+hydra.loadGameFromFile("games/keyboardTest.json").then(() => {
   hydra.start();
 })
 
