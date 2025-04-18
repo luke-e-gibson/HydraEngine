@@ -14,6 +14,15 @@
             "name": "test",
             "version": "1.0.0"
           },
+          "world": {
+            "renderer": {
+              "background": [
+                0.0,
+                0.5,
+                0.0
+              ]
+            }
+          },
           "objects": {
             "dataType": "Map",
             "value": [
@@ -46,7 +55,12 @@
                     {
                       "type": "sprite",
                       "data": {
-                        "textureLocation": "textures/pixel.png"
+                        "textureLocation": "textures/pixel.png",
+                        "color": [
+                          0.1,
+                          0.5,
+                          0.21
+                        ]
                       }
                     },
                     {
@@ -87,7 +101,12 @@
                     {
                       "type": "sprite",
                       "data": {
-                        "textureLocation": "/textures/f-texture.png"
+                        "textureLocation": "/textures/f-texture.png",
+                        "color": [
+                          0.9,
+                          0.9,
+                          0.9
+                        ]
                       }
                     }
                   ]
