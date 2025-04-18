@@ -51,6 +51,8 @@ export default class Hydra {
     
     this.keyboard = new Keyboard();
     this.mouse = new Mouse(this.triton.Canvas);
+
+    window.Hydra = this;
   }
 
   private update() {
@@ -129,6 +131,8 @@ export default class Hydra {
             spriteReference.sprite = sprite;
 
             sprite.setPosition(transform.position[0], transform.position[1]);
+            sprite.setSize(transform.scale[0], transform.scale[1]);
+
             this.triton.addSprite(object.name, sprite);
             break;
           case "script":

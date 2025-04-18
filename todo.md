@@ -1,6 +1,6 @@
 #Features to add:
 - Text rendering
-- Editor
+
 - Physics Extensions
 
 #Todo:
@@ -39,7 +39,7 @@
 - ( X ) solid color sprites
 	- ( X ) Engine Sprite adapation for solid color
 	- ( X ) Addapt triton render for soild color sprites
-- (  ) sprite sizes
+- ( X ) sprite sizes
 - (  ) pixel art sprites
 	- (  ) Config texture for scaled up none fillter texture
 
@@ -52,7 +52,35 @@
 ## Other
 - ( X ) Load game from in memory json blob
 	
+## Editor
+- (  ) Editor Gui
+	- ( X ) Inspector
+		- (  ) Add interactivuty
+	- ( X ) Scene View
+		- (  ) Refresh Sceen
+	- ( * ) Console
+		- (  ) Fix scroll container
+		- (  ) Add interactivuty
+	- ( X ) Scene View	
+		- (  ) Add interactivuty
+		
+- (  ) Save and create Projects
+	- (  ) Create Project store
+	- (  ) Save and load project from project store
+	- (  ) Create new project based of template
+- (  ) Script Editor
+	- (  ) Vscode Editor
+	- (  ) Saving and loading script from somewhere
+
 ## Script Context saving
 - ( X ) Local context
 - ( X ) Globel context
 - ( X ) Save context 
+
+## Bugs:
+- (  ) Screen color not loading set value and staying green 
+- (  ) Sprites prefering color over texture and color is block in test.json in editor
+	- (  ) Sprites not loading color in editor
+- (  ) Script run start befor game start
+
+

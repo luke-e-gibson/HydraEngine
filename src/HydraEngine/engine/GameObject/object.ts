@@ -91,7 +91,7 @@ export class GameObject {
       if(this.flags.get("hasSprite")) {
         this._components
         .getComponent<ISpriteComponent>("sprite")
-        ?.sprite?.move(
+        ?.sprite?.setPosition(
           this._components.getComponent<ITransformComponent>("transform")
             ?.position[0] ?? 0,
           this._components.getComponent<ITransformComponent>("transform")

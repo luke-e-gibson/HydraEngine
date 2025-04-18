@@ -15,9 +15,10 @@ export class Sprite implements IRenderable {
   
   private shader: Shader | null = null;
   private texture: ITexture | null = null;
-  private color: number[] = [1, 1, 1]; // Default color is white
   
   private position: number[] = [0, 0];
+  private size: number[] = [0, 0];
+  private rotation: number = 0; // Rotation in degrees
 
   constructor(path: string | null, color: [number, number, number] = [1, 1, 1]) {
     if(path === null || path === "") {
@@ -74,6 +75,24 @@ export class Sprite implements IRenderable {
 
   public setPosition(x: number, y: number): void {
     this.position = [x, y];
+    this.updateModelMatrix();
+  }
+
+  public setSize(width: number, height: number): void {
+    this.size = [width, height];
+    this.updateModelMatrix();
+  }
+
+  public setRotation(angle: number): void {
+    this.rotation = angle;
+    this.updateModelMatrix();
+  }
+
+  private updateModelMatrix(): void {
+    if (!this.modelMatrix) return;
+    this.modelMatrix = mat4.fromTranslation(mat4.create(), vec3.fromValues(this.position[0], this.position[1], 0));
+    this.modelMatrix = mat4.rotateZ(this.modelMatrix, this.modelMatrix, this.rotation * Math.PI / 180);
+    this.modelMatrix = mat4.scale(this.modelMatrix, this.modelMatrix, vec3.fromValues(this.size[0], this.size[1], 1));
   }
 
   public render(cameraMatrix: mat4, viewMatrix: mat4, gl: WebGL2RenderingContext): void {
