@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  base: '/hydra', 
   resolve: {
     alias: {
       '@triton': '/src/HydraEngine/triton',
