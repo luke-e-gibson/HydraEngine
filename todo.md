@@ -36,9 +36,9 @@
 - (  ) Call extentions binds
 
 ## More Sprite options
-- (  ) solid color sprites
-	- (  ) Engine Sprite adapation for solid color
-	- (  ) Addapt triton render for soild color sprites
+- ( X ) solid color sprites
+	- ( X ) Engine Sprite adapation for solid color
+	- ( X ) Addapt triton render for soild color sprites
 - (  ) sprite sizes
 - (  ) pixel art sprites
 	- (  ) Config texture for scaled up none fillter texture
@@ -48,6 +48,9 @@
 	- Name and version combine to Name: Version for tab title
 - ( X ) Set background color
 	- ( X ) Set render background color
+
+## Other
+- ( X ) Load game from in memory json blob
 	
 ## Script Context saving
 - ( X ) Local context

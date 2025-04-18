@@ -1,7 +1,7 @@
 import { Triton } from "@triton/engine";
 import { Sprite } from "@triton/object/Sprite";
-import { IGame, loadGameData } from "./things/game";
-import { IScene } from "./things/scene";
+import { IGame, loadGameData } from "./game/game";
+import { IScene } from "./game/scene";
 import { GameObject, IObject } from "./GameObject/object";
 import { IScriptComponent, ISpriteComponent, ITransformComponent } from "./GameObject/component";
 import { serialize } from "@helpers/serialization";
@@ -107,11 +107,15 @@ export default class Hydra {
         switch (component.type) {
           case "sprite":
             const spriteComponentData = component.data as ISpriteComponent;
+            let sprite: Sprite = null;
             if (!spriteComponentData.textureLocation) {
-              console.warn(`Sprite component for object ${object.name} has no path. Also object data might be missing or wrong.`);
+              sprite = new Sprite(spriteComponentData.textureLocation, [0,0,0]);
+            } else if(spriteComponentData.color) {
+              sprite = new Sprite(null, spriteComponentData.color);
+            } else {
+              console.error(`Sprite component for object ${object.name} is missing textureLocation or color.`);
               return;
             }
-            const sprite = new Sprite(spriteComponentData.textureLocation);
 
             const transform = gObject.getComponent<ITransformComponent>("transform");
             if (!transform) {
@@ -163,7 +167,27 @@ export default class Hydra {
     console.log("Game saved to game.json");
   }
 
-  public async loadGame(path: string) {
+  public loadGame(gameData: IGame) {
+    this.triton.clearRenderList();
+
+    window.document.title = `${gameData.metadata.name}: ${gameData.metadata.version}`;
+
+    if(!gameData.currentScene) {
+      console.warn("No current scene set in game data. Defaulting to first scene.");
+      gameData.currentScene = Array.from(gameData.scenes.keys())[0];
+    }
+
+    this.scene = gameData.scenes.get(gameData.currentScene) as IScene;
+    if (!this.scene) {
+      throw new Error(`Scene ${gameData.currentScene} not found`);
+    }
+
+    this.loadScene();
+
+    this.game = gameData;
+  }
+
+  public async loadGameFromFile(path: string) {
     const res = await fetch(path);
     const gameJson = await res.text();   // load as text to get maps back
     const gameData = loadGameData(gameJson);
