@@ -26,8 +26,10 @@ export class ScriptComponent {
   private loadScriptFunctions(scriptData: string) {
     try {
       const wrappedScript = `
-        ${scriptData}
-        return exports;  
+        with(this) {
+          ${scriptData}
+          return exports;  
+        }
       `
 
       const factory = new Function(wrappedScript);

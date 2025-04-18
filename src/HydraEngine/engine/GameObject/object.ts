@@ -8,7 +8,6 @@ import {
 import { ComponentStore } from "./ComponentStore";
 import { ScriptComponent } from "../scripting/script";
 import { ScriptStore } from "@hydra/scripting/ScriptStore";
-import { Sprite } from "@triton/object/Sprite";
 
 export interface IObject {
   id: string;
@@ -47,8 +46,8 @@ export class GameObject {
   public Start(): void {
     this._attachedScripts.scripts.forEach((script) => {
       const context = script.Start({
-        components: this._components,
         gameObject: this,
+        components: this._components,
       });
       if (context) {
         this._components = context.components;
@@ -59,8 +58,8 @@ export class GameObject {
   public Update(): void {
     this._attachedScripts.scripts.forEach((script) => {
       const context = script.Update({
-        components: this._components,
         gameObject: this,
+        components: this._components,
       });
       if (context) {
         this._components = context.components;
