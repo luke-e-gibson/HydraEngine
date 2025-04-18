@@ -1,13 +1,13 @@
 // import React from 'react';
 import { useEffect, useRef, useState } from "react";
 import SplitPane from "react-split-pane";
-import { Toolbar } from "../components/Toolbar";
+import { Toolbar } from "../components/editor/Toolbar";
 
-import { ResourceBrowser } from "../components/ResourceBrowser";
-import { SceneHierarchy } from "../components/SceneHierarchy";
-import { SceneRenderer } from "../components/SceneRender";
-import { InspectorPanel } from "../components/InspectorPanel";
-import { ConsolePanel } from "../components/ConsolePanel";
+import { ResourceBrowser } from "../components/editor/ResourceBrowser";
+import { SceneHierarchy } from "../components/editor/SceneHierarchy";
+import { SceneRenderer } from "../components/editor/SceneRender";
+import { InspectorPanel } from "../components/editor/InspectorPanel";
+import { ConsolePanel } from "../components/editor/ConsolePanel";
 
 const Editor = () => {
   return (

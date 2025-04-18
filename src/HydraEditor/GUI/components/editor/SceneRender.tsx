@@ -1,8 +1,26 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useEngineStore } from "../../stores/engineStore";
+import Hydra from "@hydra/engine";
 
 export const SceneRenderer = () => {
+  const { engine, createEngine } = useEngineStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) throw new Error("Canvas not found");
+    createEngine(canvas);
+    window.Hydra.loadGameFromFile("games/keyboardTest.json").then(() => {
+      
+    })
+    canvas.dispatchEvent(new Event("resize"));
+  }, []);
+
+  function handlePlay() {
+    if (!engine) throw new Error("Engine not found");
+    engine.start();
+  }
+
   function handleResize() {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
@@ -14,8 +32,33 @@ export const SceneRenderer = () => {
 
   return (
     <div className="relative w-full h-full bg-black flex-1">
-      <canvas className="w-full h-full" aria-label="Scene Canvas" onResize={handleResize} ref={canvasRef} />
+      <canvas
+        className="w-full h-full"
+        aria-label="Scene Canvas"
+        onResize={handleResize}
+        ref={canvasRef}
+      />
       <div className="absolute top-2 right-2 bg-gray-900 bg-opacity-70 rounded p-1 flex space-x-1">
+        <button
+          onClick={handlePlay}
+          className="p-1.5 hover:bg-gray-700 hover:bg-opacity-70 rounded"
+          title="Play"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4 text-gray-300"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 3l14 9-14 9V3z"
+            />
+          </svg>
+        </button>
         <button
           className="p-1.5 hover:bg-gray-700 hover:bg-opacity-70 rounded"
           title="Pan"
@@ -94,9 +137,7 @@ export const SceneRenderer = () => {
         </button>
       </div>
       <div className="absolute bottom-2 left-2 bg-gray-900 bg-opacity-70 rounded px-2 py-1">
-        <span className="text-xs text-gray-300">
-          FPS: {}
-        </span>
+        <span className="text-xs text-gray-300">FPS: {}</span>
       </div>
     </div>
   );

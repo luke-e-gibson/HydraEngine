@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-const USE_EDITOR = true;
+const USE_EDITOR = false;
 
 if(USE_EDITOR) {
   void createEditor();

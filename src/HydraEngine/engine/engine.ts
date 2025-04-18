@@ -51,6 +51,8 @@ export default class Hydra {
     
     this.keyboard = new Keyboard();
     this.mouse = new Mouse(this.triton.Canvas);
+
+    window.Hydra = this;
   }
 
   private update() {

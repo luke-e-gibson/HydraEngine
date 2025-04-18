@@ -83,7 +83,7 @@ export const ConsolePanel = () => {
             Console
           </h2>
           <div className="flex space-x-1">
-            <button className="p-1 hover:bg-gray-700 rounded">
+            <button className="p-1 hover:bg-gray-700 rounded" title="Clear Console" onClick={() => setLogs([])}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-3.5 w-3.5 text-red-400"
@@ -117,7 +117,7 @@ export const ConsolePanel = () => {
             </button>
           </div>
         </div>
-        <div className="overflow-auto flex-1 p-2 font-mono text-xs space-y-1">
+        <div className="overflow-y-auto flex-1 p-2 font-mono text-xs space-y-1 max-h-[calc(100vh-8rem)] scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
           {logs.map((log, index) => (
             <div key={index}>
               {log}

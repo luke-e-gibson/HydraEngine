@@ -54,10 +54,16 @@
 	
 ## Editor
 - (  ) Editor Gui
-	- (  ) Inspector
-	- (  ) Scene View
-	- (  ) Console
-	= (  ) Scene View	
+	- ( X ) Inspector
+		- (  ) Add interactivuty
+	- ( X ) Scene View
+		- (  ) Refresh Sceen
+	- ( * ) Console
+		- (  ) Fix scroll container
+		- (  ) Add interactivuty
+	- ( X ) Scene View	
+		- (  ) Add interactivuty
+		
 - (  ) Save and create Projects
 	- (  ) Create Project store
 	- (  ) Save and load project from project store
@@ -65,9 +71,15 @@
 - (  ) Script Editor
 	- (  ) Vscode Editor
 	- (  ) Saving and loading script from somewhere
-	
-	
+
 ## Script Context saving
 - ( X ) Local context
 - ( X ) Globel context
 - ( X ) Save context 
+
+## Bugs:
+- (  ) Screen color not loading set value and staying green 
+- (  ) Sprites prefering color over texture and color is block in test.json in editor
+	- (  ) Sprites not loading color in editor
+
+
