@@ -2,10 +2,12 @@ import { Triton } from "@triton/engine";
 import { Sprite } from "@triton/object/Sprite";
 import { IGame, loadGameData } from "./things/game";
 import { IScene } from "./things/scene";
-import { GameObject, IObject } from "./things/object";
-import { IScriptComponent, ISpriteComponent, ITransformComponent } from "./things/component";
+import { GameObject, IObject } from "./GameObject/object";
+import { IScriptComponent, ISpriteComponent, ITransformComponent } from "./GameObject/component";
 import { serialize } from "@helpers/serialization";
 import { ScriptComponent } from "./scripting/script";
+import { Keyboard } from "./input/keyboard";
+import { IGlobalScriptContext } from "./scripting/scriptContext";
 
 interface HydraConfig {
   render: {
@@ -20,12 +22,20 @@ interface HydraConfig {
 }
 
 export default class Hydra {
+  //Internal
   private triton: Triton;
   private running: boolean = false;
+  
+  //Game
   private game: IGame | null = null;
-
   private scene: IScene | null = null;
-  private objects: Map<string, Object> = new Map<string, Sprite>();
+  private objects: Map<string, GameObject> = new Map<string, GameObject>();
+
+  //Input
+  private keyboard: Keyboard; 
+
+  //Scripting
+  private scriptContext: IGlobalScriptContext | null = null;
 
   constructor(config: HydraConfig) {
     if(config.render.render) {
@@ -37,6 +47,8 @@ export default class Hydra {
       });
     }
     
+    this.keyboard = new Keyboard();
+
   }
 
   private update() {
@@ -44,6 +56,17 @@ export default class Hydra {
       this.triton.clear()
       return;
     };
+
+    if (!this.scene) {
+      console.warn("No scene loaded. Cannot update.");
+      return;
+    }
+
+    this.objects.forEach((object: GameObject) => {
+      this.scriptContext = object.Update({
+        keyboard: this.keyboard,
+      }, {});
+    })
 
     this.triton.renderFrame();
 
@@ -65,7 +88,7 @@ export default class Hydra {
     }
 
     this.triton.clearRenderList();
-    this.objects = new Map<string, Sprite>();
+    this.objects = new Map<string, GameObject>();
 
     this.scene.objects.forEach((object: IObject) => {
       const gObject = new GameObject(object);
@@ -86,15 +109,17 @@ export default class Hydra {
             }
             const sprite = new Sprite(spriteComponentData.textureLocation);
 
-            if(!gObject.getComponent("transform")) {
-              console.error(`Object ${object.name} has no transform component. Cannot use sprite component.`);
-              return;
-            }
             const transform = gObject.getComponent<ITransformComponent>("transform");
             if (!transform) {
               console.error(`Transform component for object ${object.name} is missing or wrong.`);
               return;
             }
+            const spriteReference = gObject.getComponent<ISpriteComponent>("sprite")
+            if(!spriteReference) 
+              return console.error(`Sprite component for object ${object.name} is missing or wrong.`);
+
+            spriteReference.sprite = sprite;
+
             sprite.setPosition(transform.position[0], transform.position[1]);
             this.triton.addSprite(object.name, sprite);
             break;
@@ -105,16 +130,13 @@ export default class Hydra {
               return;
             }
             const script = new ScriptComponent(object.name, data);
-            gObject.attachScript(script);
-            
+            gObject.scripts.attachScript(script);
+
             break;
           default:
             break;
         }
-        
-        if (component.type === "sprite") {
-          
-        }
+        this.scriptContext = gObject.Start({});
       });
 
     });
