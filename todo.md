@@ -39,7 +39,7 @@
 - ( X ) solid color sprites
 	- ( X ) Engine Sprite adapation for solid color
 	- ( X ) Addapt triton render for soild color sprites
-- (  ) sprite sizes
+- ( X ) sprite sizes
 - (  ) pixel art sprites
 	- (  ) Config texture for scaled up none fillter texture
 
