@@ -1,7 +1,7 @@
 #Features to add:
 - Text rendering
 - Editor
-- Physics Extentions
+- Physics Extensions
 
 #Todo:
 ## Keyboard Input
