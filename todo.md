@@ -17,12 +17,14 @@
     - ( X ) Example demo
 
 ## Mouse Input
-- (  ) Handel Input
-	- (  ) Listen to event
-	- (  ) Process Input
-- (  ) Allow Game engine accses
-	- (  ) Game engine accese
-	- (  ) Script accses
+- Mouse position in side canvas
+- ( X ) Handel Input
+	- ( X ) Listen to event
+	- ( X ) Process Input
+- ( X ) Allow Game engine accses
+	- ( X ) Game engine accese
+	- ( X ) Script accses
+- ( X ) Demo
 	
 ## Extention Support
 - (  ) Add and load extentions

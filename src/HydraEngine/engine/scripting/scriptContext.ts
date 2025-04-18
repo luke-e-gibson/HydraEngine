@@ -1,6 +1,7 @@
 import { ComponentStore } from "@hydra/GameObject/ComponentStore";
 import { GameObject } from "@hydra/GameObject/object";
 import { Keyboard } from "@hydra/input/keyboard";
+import { Mouse } from "@hydra/input/mouse";
 
 
 export type ILocalScriptContext = Object
@@ -14,5 +15,6 @@ export interface IScriptContext {
   global: IGlobalScriptContext;
   input: {
     keyboard: Keyboard;
+    mouse: Mouse;
   };
 }

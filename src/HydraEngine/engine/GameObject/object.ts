@@ -10,6 +10,7 @@ import { ScriptComponent } from "../scripting/script";
 import { ScriptStore } from "@hydra/scripting/ScriptStore";
 import { Keyboard } from "@hydra/input/keyboard";
 import { IGlobalScriptContext, ILocalScriptContext } from "@hydra/scripting/scriptContext";
+import { Mouse } from "@hydra/input/mouse";
 
 export interface IObject {
   id: string;
@@ -55,7 +56,8 @@ export class GameObject {
         script: this._localScriptContext,
         global: localGlobal,
         input: {
-          keyboard: new Keyboard(),
+          keyboard: null,
+          mouse: null,
         },
       });
       if (context) {
@@ -67,7 +69,7 @@ export class GameObject {
     return { scriptContext: localGlobal };
   }
 
-  public Update(input: {keyboard: Keyboard}, global: IGlobalScriptContext): { scriptContext: IGlobalScriptContext } {
+  public Update(input: {keyboard: Keyboard, mouse: Mouse}, global: IGlobalScriptContext): { scriptContext: IGlobalScriptContext } {
     let localGlobal = global
     this._attachedScripts.scripts.forEach((script) => {
       const context = script.Update({
@@ -77,6 +79,7 @@ export class GameObject {
         global: localGlobal,
         input: {
           keyboard: input.keyboard,
+          mouse: input.mouse,
         },
       });
       if (context) {

@@ -8,6 +8,7 @@ import { serialize } from "@helpers/serialization";
 import { ScriptComponent } from "./scripting/script";
 import { Keyboard } from "./input/keyboard";
 import { IGlobalScriptContext } from "./scripting/scriptContext";
+import { Mouse } from "./input/mouse";
 
 interface HydraConfig {
   render: {
@@ -32,7 +33,8 @@ export default class Hydra {
   private objects: Map<string, GameObject> = new Map<string, GameObject>();
 
   //Input
-  private keyboard: Keyboard; 
+  private keyboard: Keyboard;
+  private mouse: Mouse;
 
   //Scripting
   private scriptContext: IGlobalScriptContext | null = null;
@@ -48,7 +50,7 @@ export default class Hydra {
     }
     
     this.keyboard = new Keyboard();
-
+    this.mouse = new Mouse(this.triton.Canvas);
   }
 
   private update() {
@@ -65,6 +67,7 @@ export default class Hydra {
     this.objects.forEach((object: GameObject) => {
       this.scriptContext = object.Update({
         keyboard: this.keyboard,
+        mouse: this.mouse,
       }, {});
     })
 
