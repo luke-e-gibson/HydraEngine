@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
-export default defineConfig({
-  base: '/HydraEngine', 
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/HydraEngine' : undefined,
   resolve: {
     alias: {
       '@triton': '/src/HydraEngine/triton',
@@ -9,4 +9,4 @@ export default defineConfig({
       '@helpers': '/src/HydraEngine/helpers',
     }
   }
-})
+}));

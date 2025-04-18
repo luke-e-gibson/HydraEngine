@@ -87,7 +87,7 @@
                     {
                       "type": "sprite",
                       "data": {
-                        "textureLocation": "textures/f-texture.png"
+                        "textureLocation": "/textures/f-texture.png"
                       }
                     }
                   ]

@@ -8,6 +8,7 @@ import {
 import { ComponentStore } from "./ComponentStore";
 import { ScriptComponent } from "../scripting/script";
 import { ScriptStore } from "@hydra/scripting/ScriptStore";
+import { Keyboard } from "@hydra/input/keyboard";
 
 export interface IObject {
   id: string;
@@ -48,6 +49,9 @@ export class GameObject {
       const context = script.Start({
         gameObject: this,
         components: this._components,
+        input: {
+          keyboard: new Keyboard(),
+        },
       });
       if (context) {
         this._components = context.components;
@@ -55,11 +59,14 @@ export class GameObject {
     });
   }
 
-  public Update(): void {
+  public Update(input: {keyboard: Keyboard}): void {
     this._attachedScripts.scripts.forEach((script) => {
       const context = script.Update({
         gameObject: this,
         components: this._components,
+        input: {
+          keyboard: input.keyboard,
+        },
       });
       if (context) {
         this._components = context.components;

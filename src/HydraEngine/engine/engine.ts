@@ -6,6 +6,7 @@ import { GameObject, IObject } from "./GameObject/object";
 import { IScriptComponent, ISpriteComponent, ITransformComponent } from "./GameObject/component";
 import { serialize } from "@helpers/serialization";
 import { ScriptComponent } from "./scripting/script";
+import { Keyboard } from "./input/keyboard";
 
 interface HydraConfig {
   render: {
@@ -20,12 +21,17 @@ interface HydraConfig {
 }
 
 export default class Hydra {
+  //Internal
   private triton: Triton;
   private running: boolean = false;
+  
+  //Game
   private game: IGame | null = null;
-
   private scene: IScene | null = null;
   private objects: Map<string, GameObject> = new Map<string, GameObject>();
+
+  //Input
+  private keyboard: Keyboard; 
 
   constructor(config: HydraConfig) {
     if(config.render.render) {
@@ -37,6 +43,8 @@ export default class Hydra {
       });
     }
     
+    this.keyboard = new Keyboard();
+
   }
 
   private update() {
@@ -51,7 +59,9 @@ export default class Hydra {
     }
 
     this.objects.forEach((object: GameObject) => {
-      object.Update();
+      object.Update({
+        keyboard: this.keyboard,
+      });
     })
 
     this.triton.renderFrame();

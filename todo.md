@@ -1,11 +1,12 @@
 ## Keyboard Input
-- () Handel Input
-    - () Listen to keyboard events
-    - () Process Input 
-- () Allow game Engine accede to input
-    - () Function to allow engine to accede map
-    - () Key event types
+- ( X ) Handel Input
+    - ( X ) Listen to keyboard events
+    - ( X ) Process Input 
+- () Allow game Engine accses to input
+    - ( X ) Function to allow engine to accede map
+    - (X ) Key event types
       - Pressed: Bool true pressed false not pressed
 - () Add input to context
-    - () Add input to Context interface
-    - () Example game
+    - ( X ) Add input to Context interface
+    - ( X ) Example demo
+	
