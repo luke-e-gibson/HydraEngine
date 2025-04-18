@@ -1,4 +1,5 @@
-import { Texture } from "@triton/texture";
+import { ImageTexture } from "@triton/texture/imageTexture";
+import { ITexture } from "@triton/texture/ITexture";
 import { mat4 } from "gl-matrix";
 
 export class Shader {
@@ -69,9 +70,8 @@ export class Shader {
     this.gl.uniformMatrix4fv(this.getUniformLocation(Shader.VOCABULARY.uniform.modelMatrix), false, modelMatrix);
   }
 
-  public setTexture(texture: Texture): void {
+  public setTexture(texture: ITexture): void {
     this.gl.uniform1i(this.getUniformLocation(Shader.VOCABULARY.uniform.useTexture), 1);
-    this.gl.uniform4f(this.getUniformLocation(Shader.VOCABULARY.uniform.color), 1, 1, 1, 1);
     this.gl.bindTexture(this.gl.TEXTURE_2D, texture.getTexture());
   }
 

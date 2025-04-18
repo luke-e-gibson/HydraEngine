@@ -1,8 +1,10 @@
+import { ITexture } from "./ITexture";
+
 let lastTextureUnit = 0;
 
 const textureCache: Map<string, WebGLTexture> = new Map<string, WebGLTexture>();
 
-export class Texture {
+export class ImageTexture implements ITexture {
   private imagePath: string;
   private texture: WebGLTexture | null = null;
   private textureUnit: number = lastTextureUnit;
@@ -12,11 +14,7 @@ export class Texture {
   }
 
   public init(gl: WebGL2RenderingContext) {    
-    if (textureCache.has(this.imagePath)) {
-      this.texture = textureCache.get(this.imagePath) as WebGLTexture;
-      return;
-    }
-
+    
     this.texture = gl.createTexture();
     if (!this.texture) throw new Error("[ X ] Texture creation failed");
     gl.bindTexture(gl.TEXTURE_2D, this.texture);

@@ -1,8 +1,10 @@
 import { mat4, vec3 } from "gl-matrix";
 import { IRenderable } from "./IRenderable";
 import { Shader } from "@triton/shader/Shader";
-import { Texture } from "../texture";
+import { ImageTexture } from "../texture/imageTexture";
 import { CONSTS } from "./consts";
+import { SolidTexture } from "@triton/texture/solidTexture";
+import { ITexture } from "@triton/texture/ITexture";
 
 export class Sprite implements IRenderable {
   private vertexBuffer: WebGLBuffer | null = null;
@@ -12,12 +14,17 @@ export class Sprite implements IRenderable {
   private modelMatrix: mat4 | null = null;
   
   private shader: Shader | null = null;
-  private texture: Texture | null = null;
+  private texture: ITexture | null = null;
+  private color: number[] = [1, 1, 1]; // Default color is white
   
   private position: number[] = [0, 0];
 
-  constructor(path: string) {
-    this.texture = new Texture(path);
+  constructor(path: string | null, color: [number, number, number] = [1, 1, 1]) {
+    if(path === null || path === "") {
+      this.texture = new ImageTexture(path);
+    }else {
+      this.texture = new SolidTexture(color);
+    }
   }
 
   public move(x: number, y: number): void {

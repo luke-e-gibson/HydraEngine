@@ -14,7 +14,7 @@ export interface ITransformComponent {
   scale: [number, number, number], // X, Y, Z
 }
 export interface ISpriteComponent {
-  textureLocation: string, // URL to the texture
+  textureLocation?: string, // URL to the texture
   offset?: [number, number], // X, Y
   color?: [number, number, number], // RGB
   sprite?: Sprite, // For game engine reference
