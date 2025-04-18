@@ -1,5 +1,7 @@
-export const ScriptContext = {
-  test: ()=> {
-    console.log("Script context test function called.");
-  }
-} 
+import { ComponentStore } from "@hydra/GameObject/ComponentStore";
+import { GameObject } from "@hydra/GameObject/object";
+
+export interface IScriptContext {
+  components: ComponentStore;
+  gameObject: GameObject;
+}

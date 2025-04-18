@@ -1,10 +1,11 @@
-import { IScriptComponent } from "../things/component";
-import { ScriptContext } from "./scriptContext";
+import { IScriptComponent } from "../GameObject/component";
+import { IScriptContext } from "./scriptContext";
 
 export class ScriptComponent {
   private _name: string;
   private _scriptFunctions: Map<string, Function> = new Map<string, Function>();
-
+  private _scriptContext: IScriptContext | null = null;
+  private _flags: Map<string, boolean> = new Map<string, boolean>();
 
   constructor(name: string, scriptData: IScriptComponent) {
     this._name = name;
@@ -52,8 +53,29 @@ export class ScriptComponent {
     }
   }
   
-  public Start(): void {
-    this._scriptFunctions.get("Start")?.call({ ...ScriptContext });
+  public updateGameContext(context: IScriptContext): void {
+    this._scriptContext = context;
+    console.log("Script context updated:", this._scriptContext);
+  }
+
+  public Start(context: IScriptContext): IScriptContext | void {
+    const contextReturn: IScriptContext = this._scriptFunctions.get("Start")?.call({ ...context });
+    if (contextReturn) {
+      return contextReturn;
+    } else {
+      console.warn("Start function not found or did not return a context.");
+    }
+  }
+
+  public Update(context: IScriptContext): IScriptContext | void {
+    const contextReturn: IScriptContext = this._scriptFunctions.get("Update")?.call({ ...context });
+    if (contextReturn) {
+      return contextReturn;
+    } else {
+      if(this._flags.get("UpdateWarn")) return
+      console.warn("Update function not found or did not return a context.");
+      this._flags.set("UpdateWarn", true);
+    }
   }
 
   public get name(): string {

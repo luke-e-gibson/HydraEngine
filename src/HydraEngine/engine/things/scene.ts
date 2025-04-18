@@ -1,4 +1,4 @@
-import { IObject } from "./object";
+import { IObject } from "../GameObject/object";
 
 export interface IScene {
   metadata: {

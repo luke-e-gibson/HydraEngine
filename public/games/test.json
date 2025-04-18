@@ -52,7 +52,7 @@
                     {
                       "type": "script",
                       "data": {
-                        "scriptData": "function Start() { console.log(`Hello from test.json`); this.test() } \n const exports = { Start };"
+                        "scriptData": "function Start() { console.log(`Hello from test.json`); this.components.getComponent('transform').position = [0,2,0]; return this }; function Update() { return this }  \n const exports = { Start, Update };"
                       }
                     }
                   ]
