@@ -81,5 +81,6 @@
 - (  ) Screen color not loading set value and staying green 
 - (  ) Sprites prefering color over texture and color is block in test.json in editor
 	- (  ) Sprites not loading color in editor
+- (  ) Script run start befor game start
 
 

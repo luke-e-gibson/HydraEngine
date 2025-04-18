@@ -6,8 +6,11 @@ declare global {
     Hydra: Hydra;
   }
 }
+if(window.localStorage.getItem("useEditor") === null) {
+  window.localStorage.setItem("useEditor", "false");
+}
 
-const USE_EDITOR = false;
+const USE_EDITOR = window.localStorage.getItem("useEditor") === "true";
 
 if(USE_EDITOR) {
   void createEditor();
