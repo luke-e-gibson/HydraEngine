@@ -1,6 +1,6 @@
 #Features to add:
 - Text rendering
-- Editor
+
 - Physics Extensions
 
 #Todo:
@@ -51,6 +51,21 @@
 
 ## Other
 - ( X ) Load game from in memory json blob
+	
+## Editor
+- (  ) Editor Gui
+	- (  ) Inspector
+	- (  ) Scene View
+	- (  ) Console
+	= (  ) Scene View	
+- (  ) Save and create Projects
+	- (  ) Create Project store
+	- (  ) Save and load project from project store
+	- (  ) Create new project based of template
+- (  ) Script Editor
+	- (  ) Vscode Editor
+	- (  ) Saving and loading script from somewhere
+	
 	
 ## Script Context saving
 - ( X ) Local context

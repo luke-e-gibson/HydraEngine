@@ -13,6 +13,10 @@
     "moduleDetection": "force",
     "noEmit": true,
 
+    //React 
+    "jsx": "react-jsx",
+    
+
     /* Linting */
     "strict": false,
     "noUnusedLocals": false,
@@ -22,6 +26,7 @@
 
     "paths": {
       "@hydra/*": ["./src/HydraEngine/engine/*"],
+      "@hydra/editor/*": ["./src/HydraEditor/*"],
       "@triton/*": ["./src/HydraEngine/triton/*"],
       "@helpers/*": ["./src/HydraEngine/helpers/*"],
 

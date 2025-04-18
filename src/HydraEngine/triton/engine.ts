@@ -36,8 +36,23 @@ export class Triton {
       this.canvas.width = config.size.width;
       this.canvas.height = config.size.height;
     } else {
+      // If no size is provided we use fullscreen
+      //Inject window css
+      const style = document.createElement("style");
+      style.innerHTML = `
+        html, body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+        }
+      `;
+      document.head.appendChild(style);
+
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
+
       window.onresize = () => this.handleResize();
     }
     if (!document.body.contains(this.canvas)) {
