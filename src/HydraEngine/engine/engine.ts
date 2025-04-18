@@ -7,6 +7,7 @@ import { IScriptComponent, ISpriteComponent, ITransformComponent } from "./GameO
 import { serialize } from "@helpers/serialization";
 import { ScriptComponent } from "./scripting/script";
 import { Keyboard } from "./input/keyboard";
+import { IGlobalScriptContext } from "./scripting/scriptContext";
 
 interface HydraConfig {
   render: {
@@ -32,6 +33,9 @@ export default class Hydra {
 
   //Input
   private keyboard: Keyboard; 
+
+  //Scripting
+  private scriptContext: IGlobalScriptContext | null = null;
 
   constructor(config: HydraConfig) {
     if(config.render.render) {
@@ -59,9 +63,9 @@ export default class Hydra {
     }
 
     this.objects.forEach((object: GameObject) => {
-      object.Update({
+      this.scriptContext = object.Update({
         keyboard: this.keyboard,
-      });
+      }, {});
     })
 
     this.triton.renderFrame();
@@ -132,7 +136,7 @@ export default class Hydra {
           default:
             break;
         }
-        gObject.Start();
+        this.scriptContext = gObject.Start({});
       });
 
     });

@@ -1,3 +1,8 @@
+#Features:
+- Text rendering
+- Editor
+
+#Todo:
 ## Keyboard Input
 - ( X ) Handel Input
     - ( X ) Listen to keyboard events
@@ -9,4 +14,16 @@
 - () Add input to context
     - ( X ) Add input to Context interface
     - ( X ) Example demo
+
+## Mouse Input
+- (  ) Handel Input
+	- (  ) Listen to event
+	- (  ) Process Input
+- (  ) Allow Game engine accses
+	- (  ) Game engine accese
+	- (  ) Script accses
 	
+## Script Context saving
+- ( X ) Local context
+- ( X ) Globel context
+- ( X ) Save context 

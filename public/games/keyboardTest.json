@@ -52,7 +52,7 @@
                     {
                       "type": "script",
                       "data": {
-                        "scriptData": "function Start() { console.log(`Hello from test.json`); this.components.getComponent('transform').position = [0,2,0]; return this }; function Update() { if(this.input.keyboard.isKeyDown('KeyK')) { this.components.getComponent('transform').position = [0,1,0]; } return this }  \n const exports = { Start, Update };"
+                        "scriptData": "function Start() { this.global.i = 0; console.log(`Hello from test.json`); this.components.getComponent('transform').position = [0,2,0]; window.pressed = 0; return this }; function Update() { window.pressed = this.input.keyboard.isKeyDown('KeyK') ? 2 : 0; this.components.getComponent('transform').position = [0,window.pressed,0]; this.global.i = this.global.i + 'a';  return this }  \n const exports = { Start, Update };"
                       }
                     }
                   ]

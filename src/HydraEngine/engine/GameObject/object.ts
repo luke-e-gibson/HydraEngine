@@ -9,6 +9,7 @@ import { ComponentStore } from "./ComponentStore";
 import { ScriptComponent } from "../scripting/script";
 import { ScriptStore } from "@hydra/scripting/ScriptStore";
 import { Keyboard } from "@hydra/input/keyboard";
+import { IGlobalScriptContext, ILocalScriptContext } from "@hydra/scripting/scriptContext";
 
 export interface IObject {
   id: string;
@@ -25,6 +26,7 @@ export class GameObject {
 
   private _components: ComponentStore;
   private _attachedScripts: ScriptStore;
+  private _localScriptContext: ILocalScriptContext = {};
 
   private flags: Map<GameObjectFlags, boolean> = new Map<
     GameObjectFlags,
@@ -44,32 +46,43 @@ export class GameObject {
     new Map<string, ScriptComponent>();
   }
 
-  public Start(): void {
+  public Start(global: IGlobalScriptContext): { scriptContext: IGlobalScriptContext } {
+    let localGlobal = global
     this._attachedScripts.scripts.forEach((script) => {
       const context = script.Start({
         gameObject: this,
         components: this._components,
+        script: this._localScriptContext,
+        global: localGlobal,
         input: {
           keyboard: new Keyboard(),
         },
       });
       if (context) {
         this._components = context.components;
+        this._localScriptContext = context.script;
+        localGlobal = context.global;
       }
     });
+    return { scriptContext: localGlobal };
   }
 
-  public Update(input: {keyboard: Keyboard}): void {
+  public Update(input: {keyboard: Keyboard}, global: IGlobalScriptContext): { scriptContext: IGlobalScriptContext } {
+    let localGlobal = global
     this._attachedScripts.scripts.forEach((script) => {
       const context = script.Update({
         gameObject: this,
         components: this._components,
+        script: this._localScriptContext,
+        global: localGlobal,
         input: {
           keyboard: input.keyboard,
         },
       });
       if (context) {
         this._components = context.components;
+        this._localScriptContext = context.script;
+        localGlobal = context.global; 
       }
 
       if(this.flags.get("hasSprite")) {
@@ -83,6 +96,7 @@ export class GameObject {
         );
       }
     });
+    return { scriptContext: localGlobal };
   }
 
   public getComponent<T>(type: ComponentTypes): T | null {
