@@ -11,10 +11,10 @@ export class ImageTexture implements ITexture {
 
   constructor(path: string) {
     this.imagePath = path;
+    console.log("[ X ] ImageTexture created with path: ", this.imagePath);
   }
 
   public init(gl: WebGL2RenderingContext) {    
-    
     this.texture = gl.createTexture();
     if (!this.texture) throw new Error("[ X ] Texture creation failed");
     gl.bindTexture(gl.TEXTURE_2D, this.texture);

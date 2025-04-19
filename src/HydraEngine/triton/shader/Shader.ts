@@ -71,13 +71,14 @@ export class Shader {
   }
 
   public setTexture(texture: ITexture): void {
-    this.gl.uniform1i(this.getUniformLocation(Shader.VOCABULARY.uniform.useTexture), 1);
     this.gl.bindTexture(this.gl.TEXTURE_2D, texture.getTexture());
+    this.gl.uniform1i(this.getUniformLocation(Shader.VOCABULARY.uniform.useTexture), 1);
+    this.gl.uniform4f(this.getUniformLocation(Shader.VOCABULARY.uniform.color), 1, 1, 1, 1);
   }
 
   public setColor(color: number[]): void {
     this.gl.uniform1i(this.getUniformLocation(Shader.VOCABULARY.uniform.useTexture), 0);
-    this.gl.uniform4f(this.getUniformLocation(Shader.VOCABULARY.uniform.color), color[0], color[1], color[2], color[3]);
+    this.gl.uniform4f(this.getUniformLocation(Shader.VOCABULARY.uniform.color), color[0], color[1], color[2], 1);
   }
 
   public getAttribLocation(name: string): number {

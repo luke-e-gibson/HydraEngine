@@ -33,8 +33,8 @@ export class Triton {
     this.updateState("starting", "Triton is starting...");
     this.canvas = config.canvas || document.createElement("canvas");
     if (config.size) {
-      this.canvas.width = config.size.width;
-      this.canvas.height = config.size.height;
+      this.canvas.width = this.canvas.getBoundingClientRect().width;
+      this.canvas.height = this.canvas.getBoundingClientRect().height;
     } else {
       // If no size is provided we use fullscreen
       //Inject window css

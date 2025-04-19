@@ -109,10 +109,12 @@ export default class Hydra {
         switch (component.type) {
           case "sprite":
             const spriteComponentData = component.data as ISpriteComponent;
+            console.log(spriteComponentData);
             let sprite: Sprite = null;
-            if (!spriteComponentData.textureLocation) {
-              sprite = new Sprite(spriteComponentData.textureLocation, [0,0,0]);
+            if (spriteComponentData.textureLocation != undefined) {
+              sprite = new Sprite(spriteComponentData.textureLocation, [1,0,1]);
             } else if(spriteComponentData.color) {
+              console.log("Creating sprite with color", spriteComponentData.color);
               sprite = new Sprite(null, spriteComponentData.color);
             } else {
               console.error(`Sprite component for object ${object.name} is missing textureLocation or color.`);

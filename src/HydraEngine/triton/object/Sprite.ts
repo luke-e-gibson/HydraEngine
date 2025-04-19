@@ -15,16 +15,19 @@ export class Sprite implements IRenderable {
   
   private shader: Shader | null = null;
   private texture: ITexture | null = null;
+  private color: [number, number, number] = [1, 1, 1];
   
   private position: number[] = [0, 0];
   private size: number[] = [0, 0];
   private rotation: number = 0; // Rotation in degrees
 
   constructor(path: string | null, color: [number, number, number] = [1, 1, 1]) {
-    if(path === null || path === "") {
+    if(path !== null) {
       this.texture = new ImageTexture(path);
     }else {
+
       this.texture = new SolidTexture(color);
+      this.color = color;
     }
   }
 
@@ -62,6 +65,7 @@ export class Sprite implements IRenderable {
         this.texture.init(gl)
 
         this.modelMatrix = mat4.fromTranslation(mat4.create(), vec3.fromValues(this.position[0], this.position[1], 0));
+        console.log(this.texture)
   }
 
   public destroy(gl: WebGL2RenderingContext): void {
@@ -115,7 +119,12 @@ export class Sprite implements IRenderable {
         gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
         
         this.shader.setMatrix(cameraMatrix, viewMatrix, this.modelMatrix);
-        this.shader.setTexture(this.texture);
+        
+        if(!this.texture) {
+          this.shader.setColor(this.color);
+        } else {
+          this.shader.setTexture(this.texture);
+        }
         // Bind the index buffer
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
     

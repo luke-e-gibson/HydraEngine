@@ -11,7 +11,7 @@ out vec4 outColor;
 
 void main() {
     if (u_useTexture) {
-      outColor = texture(u_texture, v_texCoord) * u_color;
+      outColor = texture(u_texture, v_texCoord) * vec4(u_color.rgb, 1.0);
     }
     else {
       outColor = u_color;
