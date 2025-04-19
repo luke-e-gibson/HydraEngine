@@ -3,7 +3,7 @@ import { useEngineStore } from "../../stores/engineStore";
 import Hydra from "@hydra/engine";
 
 export const SceneRenderer = () => {
-  const { engine, createEngine } = useEngineStore();
+  const { engine, createEngine, hasLoaded, setHasLoaded: sethasLoaded } = useEngineStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -11,9 +11,8 @@ export const SceneRenderer = () => {
     if (!canvas) throw new Error("Canvas not found");
     createEngine(canvas);
     window.Hydra.loadGameFromFile("games/keyboardTest.json").then(() => {
-      
+      sethasLoaded(true);
     })
-    canvas.dispatchEvent(new Event("resize"));
   }, []);
 
   function handlePlay() {

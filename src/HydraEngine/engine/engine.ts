@@ -109,7 +109,6 @@ export default class Hydra {
         switch (component.type) {
           case "sprite":
             const spriteComponentData = component.data as ISpriteComponent;
-            console.log(spriteComponentData);
             let sprite: Sprite = null;
             if (spriteComponentData.textureLocation != undefined) {
               sprite = new Sprite(spriteComponentData.textureLocation, [1,0,1]);
@@ -154,6 +153,10 @@ export default class Hydra {
       });
 
     });
+  }
+
+  public get getObjects() {
+    return Array.from(this.objects.values());
   }
 
   public saveGame() {

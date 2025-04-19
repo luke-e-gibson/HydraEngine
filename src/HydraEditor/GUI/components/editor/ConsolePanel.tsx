@@ -4,7 +4,7 @@ function DebugLog(props: { message: string }) {
   return (
     <div className="flex">
       <span className="text-blue-400 mr-2">[debug]</span>
-      <span> {props.message}</span>
+      <span>{props.message}</span>
     </div>
   );
 }
@@ -13,7 +13,7 @@ function InfoLog(props: { message: string }) {
   return (
     <div className="flex">
       <span className="text-green-400 mr-2">[info]</span>
-      <span> {props.message}</span>
+      <span>{props.message}</span>
     </div>
   );
 }
@@ -22,7 +22,7 @@ function WarnLog(props: { message: string }) {
   return (
     <div className="flex">
       <span className="text-yellow-400 mr-2">[warn]</span>
-      <span> {props.message}</span>
+      <span>{props.message}</span>
     </div>
   );
 }
@@ -31,7 +31,7 @@ function Error(props: { message: string }) {
   return (
     <div className="flex">
       <span className="text-red-400 mr-2">[error]</span>
-      <span> {props.message}</span>
+      <span>{props.message}</span>
     </div>
   );
 }

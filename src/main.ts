@@ -4,6 +4,9 @@ import Hydra from "@hydra/engine";
 declare global {
   interface Window {
     Hydra: Hydra;
+    state: {
+      GUI: any
+    }
   }
 }
 if(window.localStorage.getItem("useEditor") === null) {
