@@ -94,10 +94,17 @@ export class Triton {
   }
 
   private handleResize() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.canvas.width = this.canvas.getBoundingClientRect().width;
+    this.canvas.height = this.canvas.getBoundingClientRect().height;
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+    this.camera = new Camera({
+      fov: 45,
+      size: {
+        width: this.canvas.width,
+        height: this.canvas.height,
+      },
+    })
   }
 
   private glConfig() {
