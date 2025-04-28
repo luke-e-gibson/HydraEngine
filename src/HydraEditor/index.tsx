@@ -8,6 +8,6 @@ export default function createEditor() {
   document.body.appendChild(editorHolder);
 
   const root = createRoot(editorHolder);
-  root.render(<Router><App /></Router>);
+  root.render(<App />);
 
 }
