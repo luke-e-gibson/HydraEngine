@@ -9,8 +9,6 @@ export default function App() {
       <Route path="/">
         <Editor />
       </Route>
-      <Route path="/editor">
-      </Route>
     </>
   );
 }
