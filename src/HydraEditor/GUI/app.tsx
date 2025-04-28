@@ -7,10 +7,9 @@ export default function App() {
   return (
     <>
       <Route path="/">
-        <Link to="/editor">Go to Editor</Link>
+        <Editor />
       </Route>
       <Route path="/editor">
-        <Editor />
       </Route>
     </>
   );
